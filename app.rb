@@ -23,8 +23,6 @@ module Rack
   end
 end
 
-POSTS = {}
-
 def capture(mtime, result)
   path = "/var/www/blog#{env['PATH_INFO']}"
   path += 'index.html' if path.end_with? '/'

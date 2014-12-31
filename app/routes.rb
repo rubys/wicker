@@ -1,5 +1,5 @@
 get '/' do
-  @index = POSTS.sort.reverse
+  @index = Post.all.sort.reverse[0..9]
   capture Time.now, _html(:index)
 end
 
@@ -9,7 +9,7 @@ end
 
 get %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
   link = "#{date}/#{slug}"
-  @mtime, @post = POSTS.find {|mtime, post| post.link == link}
+  @mtime, @post = Post.find(link)
   pass unless @post
   capture @post.mtime, _html(:entry)
 end

@@ -1,5 +1,6 @@
 class Post
   attr_reader :filename, :mtime
+  @@posts = {}
 
   def self.load(env)
     @@dir = File.expand_path("../../db/#{env}", __FILE__).untaint
@@ -8,9 +9,17 @@ class Post
       Dir['*.txt'].each do |post|
         post.untaint
         time = File.mtime(post)
-        POSTS[time] = Post.new(post, time)
+        @@posts[time] = Post.new(post, time)
       end
     end
+  end
+
+  def self.all
+    @@posts
+  end
+
+  def self.find(link)
+    @@posts.find {|mtime, post| post.link == link}
   end
 
   def initialize(filename, mtime)

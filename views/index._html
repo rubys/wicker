@@ -29,7 +29,7 @@ _html lang: 'en', _width: '99' do
       _p "It’s just data"
     end
 
-    POSTS.to_a.sort.reverse[0..9].each_with_index do |(mtime, post), index|
+    @index.each_with_index do |(mtime, post), index|
       _article_ do
         _header_ do
           _h3! do

@@ -1,6 +1,4 @@
 require 'wunderbar/sinatra'
-require 'wunderbar/script'
-require 'ruby2js/filter/functions'
 require 'nokogumbo'
 require 'fileutils'
 

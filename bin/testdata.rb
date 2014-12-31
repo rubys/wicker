@@ -1,7 +1,11 @@
 #!/usr/bin/ruby
 require 'time'
 require 'nokogumbo'
+require 'fileutils'
 fileformat = 'http://www.fileformat.info/info/unicode/char'
+
+dest = File.expand_path("../../db/test", __FILE__)
+FileUtils.mkdir_p dest
 
 posts = %w(one two three four five six seven eight nine ten eleven twelve)
 
@@ -19,7 +23,7 @@ posts.each_with_index do |name, number|
   svg.at('g')['transform'] = 'scale(0.408) translate(-21,-175)'
 
   puts name
-  post = File.expand_path("../../db/test/#{name}.txt", __FILE__)
+  post = "#{dest}/#{name}.txt"
   File.open(post, 'w') do |file|
     file.puts name.capitalize
     file.puts "<div class='excerpt'>#{([name]*[number,3].min).join(' ')}</div>"

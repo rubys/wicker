@@ -2,3 +2,4 @@ bin/fetch
 db/test
 db/production
 public/js/jquery-*
+Gemfile.lock

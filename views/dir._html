@@ -1,0 +1,7 @@
+_html do
+  _ol do
+    POSTS.sort.each do |time, post|
+      _li "#{time}: #{post.link}"
+    end
+  end
+end

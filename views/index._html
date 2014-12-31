@@ -6,14 +6,14 @@ _html lang: 'en', _width: '99' do
   _head_ do
     _title 'Sam Ruby'
     _link rel: 'alternate', type: 'application/atom+xml', 
-      title: 'Intertwingly', href: '/blog/index.atom'
+      title: 'Sam Ruby', href: '/blog/index.atom'
     _link rel: 'stylesheet', href: '/css/blogy.css', type: 'text/css', 
       media: 'screen'
     _link rel: 'stylesheet', href: '/css/print.css', type: 'text/css', 
       media: 'print'
-    _link rel: 'shortcut icon', href: 'http://intertwingly.net/favicon.ico'
-    _script :defer, src: 'http://intertwingly.net/js/jquery-1.5.min.js'
-    _script :defer, src: 'http://intertwingly.net/js/jq_localize_dates.js'
+    _link rel: 'shortcut icon', href: '/favicon.ico'
+    _script :defer, src: '/js/jquery-1.11.2.min.js'
+    _script :defer, src: '/js/jq_localize_dates.js'
   end
 
   _body do

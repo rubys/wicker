@@ -1,3 +1,4 @@
 bin/fetch
 db/test
 db/production
+public/js/jquery-*

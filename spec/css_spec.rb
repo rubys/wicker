@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-feature "entry" do
+feature "css" do
   it "should have a blogy.css" do
     visit '/css/blogy.css'
     expect(page.status_code).to be(200)

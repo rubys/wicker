@@ -51,10 +51,10 @@ _html lang: 'en', _width: '99' do
         end
 
         comments.sort_by {|comment| comment.mtime}.reverse.each do |comment|
-          _article_ id: "c#{comment.mtime.to_i}" do
+          _article_ id: comment.fragment do
             _{comment.body.untaint}
             _ 'at'
-            _a href: "#c#{comment.mtime.to_i}" do
+            _a href: "##{comment.fragment}" do
               _time comment.mtime.utc.strftime('%H:%M:%S'), title: 'GMT',
                 datetime: comment.mtime.utc.iso8601
             end

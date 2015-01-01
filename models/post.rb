@@ -110,10 +110,16 @@ class Post
   end
 
   def comments
+    return unless @filename =~ /\.txt$/
     @comments ||= Dir.chdir(@@dir) do
-      Dir["#{@filename.sub(/\.\w+$/, '')}-*"].map do |comment|
+      Dir["#{@filename.sub(/\.txt$/, '')}-*.cmt"].map do |comment|
         Post.new(comment, File.mtime(comment.untaint))
       end
     end
+  end
+
+  def fragment
+    name = @filename[/-(\d+)\.cmt$/, 1]
+    name && "c#{name}"
   end
 end

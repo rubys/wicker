@@ -5,7 +5,7 @@ require 'fileutils'
 require_relative 'app/routes'
 require_relative 'models/post'
 
-Wunderbar::Template::PASSABLE.push Post, Time
+Wunderbar::Template::PASSABLE.push Post, Time, Date
 Wunderbar::CALLERS_TO_IGNORE.clear
 
 # Monkeypatch to address https://github.com/sinatra/sinatra/pull/907

@@ -34,8 +34,9 @@ class Post
 
   def slug
     read unless @title
-    if @title == '' or filename !~ /^\d+\.txt/
-      return filename.sub(/\.txt$/, '').gsub('_', '-')
+    name = filename.sub(/(\.txt|-\d+\.cmt)$/, '')
+    if @title == '' or name =~ /\D/
+      return name.gsub('_', '-')
     end
     title = @title.gsub("'", '').gsub(/\&#?\w+;/, '').gsub(/<.*?>/, '')
     title.gsub(/\W+/, '-')
@@ -51,10 +52,10 @@ class Post
 
     if @excerpt.include? '<p>'
       @excerpt.sub!(/\A<div.*?>/, '')
-      @excerpt.sub!(/<\div>\Z/, '')
+      @excerpt.sub!(/<\/div>\Z/, '')
     else
       @excerpt.sub!(/\A<div.*?>/, '<p>')
-      @excerpt.sub!(/<\div>\Z/, '</p>')
+      @excerpt.sub!(/<\/div>\Z/, '</p>')
     end
 
     @excerpt

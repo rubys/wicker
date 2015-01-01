@@ -42,7 +42,8 @@ posts.each_with_index do |name, number|
   next if File.exist? comment
   File.open(comment, 'w') do |file|
     file.puts 'Twelve'
-    file.puts name
+    file.puts "<p>#{name}</p>"
+    file.puts 'Posted by <a href="http://example.com/">nobody</a>'
   end
   File.utime(time, time, comment)
 end
@@ -52,7 +53,8 @@ comment = "#{dest}/five-#{time.to_i}.cmt"
 unless File.exist? comment
   File.open(comment, 'w') do |file|
     file.puts 'Five'
-    file.puts 'comment'
+    file.puts "<p>comment</p>"
+    file.puts 'Posted by <a href="http://example.com/">nobody</a>'
   end
   File.utime(time, time, comment)
 end

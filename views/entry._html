@@ -41,10 +41,23 @@ _html lang: 'en', _width: '99' do
       _{@post.body.untaint}
     end
 
-    @post.comments.each do |comment|
-      _article_ do
-        _a id: "c#{comment.mtime.to_i}"
-        _{comment.body.untaint}
+    sections = @post.comments.group_by {|comment| comment.mtime.utc.to_date}
+    sections.sort.reverse.each do |date, comments|
+      _section_ do
+        _header_ do
+          _h2! {_time date.to_s, datetime: date.to_s}
+        end
+
+        comments.sort_by {|comment| comment.mtime}.reverse.each do |comment|
+          _article_ id: "c#{comment.mtime.to_i}" do
+            _{comment.body.untaint}
+            _ 'at'
+            _a href: "#c#{comment.mtime.to_i}" do
+              _time comment.mtime.utc.strftime('%H:%M:%S'),
+                datetime: comment.mtime.utc.to_s
+            end
+          end
+        end
       end
     end
 

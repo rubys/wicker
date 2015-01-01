@@ -17,10 +17,14 @@ end
 get %r{/archives/(\d\d\d\d)/(\d\d)} do |year, month|
   month, year = month.to_i, year.to_i
 
-  @date = Date.new(year, month, 1)
-  @weeks = (1..31).select {|day| Date.valid_date?(year, month, day)}.
-    map {|day| Date.new(year, month, day)}.
-    group_by {|date| date.strftime('%U')}
+  @dates = (1..31).select {|day| Date.valid_date?(year, month, day)}.
+    map {|day| Date.new(year, month, day)}
+  @weeks = @dates.group_by {|date| date.strftime('%U')}
+
+  @posts = Hash[@dates.map {|date| [date.day, []]}]
+  Post.all.each do |mtime, post|
+    @posts[mtime.day] << post if mtime.year == year and mtime.month == month
+  end
 
   _html :archives
 end

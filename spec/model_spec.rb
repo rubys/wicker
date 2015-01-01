@@ -10,6 +10,7 @@ feature "post model" do
     expect(post.excerpt).to eq("<p>twelve twelve twelve</p>\n")
     expect(post.icon).to include("'CIRCLED NUMBER TWELVE' (U+246B)-->")
     expect(post.icon).to include('viewBox="0 0 100 100"')
+    expect(post.icon(0.4)).to include("width='40'")
     expect(post.body).to eq("<p>#{(%w(twelve)*12).join(' ')}</p>")
     expect(post.fragment).to be(nil)
   end

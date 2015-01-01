@@ -52,6 +52,8 @@ _html lang: 'en', _width: '99' do
           args = {title: post.title, href: "#{post.link}#comments"}
           if post.comments.empty?
             _a "Add comment", args
+          elsif post.comments.length == 1
+            _a "1 comment", args
           else
             _a "#{post.comments.length} comments", args
           end

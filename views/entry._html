@@ -39,6 +39,8 @@ _html lang: 'en', _width: '99' do
       __{@post.icon.untaint} if @post.icon
 
       _{@post.body.untaint}
+
+      _footer_
     end
 
     sections = @post.comments.group_by {|comment| comment.mtime.utc.to_date}
@@ -53,8 +55,8 @@ _html lang: 'en', _width: '99' do
             _{comment.body.untaint}
             _ 'at'
             _a href: "#c#{comment.mtime.to_i}" do
-              _time comment.mtime.utc.strftime('%H:%M:%S'),
-                datetime: comment.mtime.utc.to_s
+              _time comment.mtime.utc.strftime('%H:%M:%S'), title: 'GMT',
+                datetime: comment.mtime.utc.iso8601
             end
           end
         end

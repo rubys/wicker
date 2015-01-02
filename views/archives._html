@@ -54,13 +54,13 @@ _html lang: 'en' do
     end
   end
 
-  _div.leftbar do
+  _div!.leftbar do
     prev_month = @dates.first - 1
     _h2 do
       _a prev_month.strftime('%B %Y'), href: prev_month.strftime('../%Y/%m')
     end
   end
-  _div.rightbar do
+  _div!.rightbar do
     next_month = @dates.last + 1
     _h2 do
       _a next_month.strftime('%B %Y'), href: next_month.strftime('../%Y/%m')

@@ -21,6 +21,10 @@ module Rack
   end
 end
 
+require 'ostruct'
+Snippets = OpenStruct.new
+Dir[File.expand_path('../views/_*.rb', __FILE__)].each {|file| require file}
+
 def capture(mtime, result)
   path = "/var/www/blog#{env['PATH_INFO']}"
   path += 'index.html' if path.end_with? '/'

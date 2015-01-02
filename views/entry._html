@@ -1,167 +1,62 @@
-#!/usr/bin/ruby1.9.1
-# encoding: utf-8
-require 'wunderbar'
-
 _html lang: 'en', _width: '99' do
-  _head do
-    _title "Sam Ruby: #{@post.title}"
-    _link rel: 'stylesheet', href: '/css/blogy.css', type: 'text/css', 
-      media: 'screen'
-    _link rel: 'stylesheet', href: '/css/print.css', type: 'text/css', 
-      media: 'print'
-    _link rel: 'shortcut icon', href: '/favicon.ico'
-    _script :defer, src: '/js/jquery-1.11.2.min.js'
-    _script :defer, src: '/js/jq_localize_dates.js'
+  _title "Sam Ruby: #{@post.title}"
+  _link rel: 'stylesheet', href: '/css/blogy.css', type: 'text/css', 
+    media: 'screen'
+  _link rel: 'stylesheet', href: '/css/print.css', type: 'text/css', 
+    media: 'print'
+  _link rel: 'shortcut icon', href: '/favicon.ico'
+  _script :defer, src: '/js/jquery-1.11.2.min.js'
+  _script :defer, src: '/js/jq_localize_dates.js'
+
+  _header do
+    _h1 do
+      _a.banner_anchor 'intertwingly', href: 'http://intertwingly.net/blog/'
+    end
+
+    _form method: 'get', action: 'http://intertwingly.net/blog/' do
+      _label 'Search', for: 'q'
+      _input.q! type: 'search', name: 'q', placeholder: 'Search', value: ''
+    end
+    _p "It’s just data"
   end
 
-  _body_ do
-    _header do
-      _h1 do
-        _a.banner_anchor 'intertwingly', href: 'http://intertwingly.net/blog/'
-      end
-
-      _form method: 'get', action: 'http://intertwingly.net/blog/' do
-        _label 'Search', for: 'q'
-        _input.q! type: 'search', name: 'q', placeholder: 'Search', value: ''
-      end
-      _p "It’s just data"
+  _article_ do
+    _header_ do
+      _h3! { _a @post.title, href: '' }
+      _time @mtime.utc.httpdate, title: 'GMT', datetime: @mtime.utc.iso8601
     end
 
-    _article_ do
+    __{@post.icon.untaint} if @post.icon
+
+    _{@post.body.untaint}
+
+    _footer_
+  end
+
+  sections = @post.comments.group_by {|comment| comment.mtime.utc.to_date}
+  sections.sort.each do |date, comments|
+    _section_ do
       _header_ do
-        _h3 do
-          _a @post.title, href: @post.link
-        end
-
-        _time @mtime.utc.httpdate, title: 'GMT', datetime: @mtime.utc.iso8601
+        _h2! {_time date.to_s, datetime: date.to_s}
       end
 
-      __{@post.icon.untaint} if @post.icon
-
-      _{@post.body.untaint}
-
-      _footer_
-    end
-
-    sections = @post.comments.group_by {|comment| comment.mtime.utc.to_date}
-    sections.sort.each do |date, comments|
-      _section_ do
-        _header_ do
-          _h2! {_time date.to_s, datetime: date.to_s}
-        end
-
-        comments.sort_by {|comment| comment.mtime}.each do |comment|
-          _article_ id: comment.fragment do
-            _{comment.body.untaint}
-            _ 'at'
-            _a href: "##{comment.fragment}" do
-              _time comment.mtime.utc.strftime('%H:%M:%S'), title: 'GMT',
-                datetime: comment.mtime.utc.iso8601
-            end
+      comments.sort_by {|comment| comment.mtime}.each do |comment|
+        _article_ id: comment.fragment do
+          _{comment.body.untaint}
+          _ 'at'
+          _a href: "##{comment.fragment}" do
+            _time comment.mtime.utc.strftime('%H:%M:%S'), title: 'GMT',
+              datetime: comment.mtime.utc.iso8601
           end
         end
       end
     end
+  end
 
-    _aside do
-      _h2 'mingle'
-      _nav do
-        _ul do
-          _li { _a 'About', href: 'http://en.wikipedia.org/wiki/Sam_Ruby' }
-          _li { _a 'Twitter', href: 'http://twitter.com/samruby' }
-          _li { _a 'Comments', href: 'http://intertwingly.net/blog/comments.html' }
-          _li { _a.navbar_register! 'Register', href: 'http://intertwingly.net/blog/registry/' }
-          _li { _a 'Statistics', href: 'http://intertwingly.net/stats/' }
-          _li { _a 'Archives', href: 'http://intertwingly.net/blog/archives/' }
-          _li { _a 'Planet', href: 'http://planet.intertwingly.net/' }
-          _li { _a 'Code', href: 'http://code.intertwingly.net/public/' }
-          _li { _a 'Rails', href: 'http://www.pragprog.com/titles/rails4/agile-web-development-with-rails-4th-edition' }
-          _li { _a 'RESTful', href: 'http://www.oreilly.com/catalog/9780596529260/' }
-          _li { _a 'Disclaimer', href: 'http://intertwingly.net/blog/2005/05/16/Disclaim-This' }
-        end
-      end
-    end
-    _footer_ do
-      _ul do
-        _li do
-          _ 'HTTP'
-          _ul do
-            _li { _a 'RFC 2616', href: 'http://tools.ietf.org/html/rfc2616' }
-            _li { _a 'httpbis', href: 'http://www.ietf.org/html.charters/httpbis-charter.html' }
-            _li do
-              _ 'URI'
-              _ul do
-                _li { _a 'RFC 3986', href: 'http://tools.ietf.org/html/rfc3986' }
-                _li { _a 'URI Template', href: 'http://bitworking.org/projects/URI-Templates/' }
-              end
-            end
-          end
-        end
-        _li do
-          _ 'HTML'
-          _ul do
-            _li { _a 'Working Group', href: 'http://www.w3.org/html/wg/' }
-            _li { _a 'WHATWG', href: 'http://www.whatwg.org/' }
-            _li do
-              _ 'Specs'
-              _ul do
-                _li { _a 'HTML 4.01', href: 'http://www.w3.org/TR/REC-html40/' }
-                _li { _a 'XHTML 1.0', href: 'http://www.w3.org/TR/xhtml1/' }
-              end
-            end
-            _li do
-              _ 'Drafts'
-              _ul do
-                _li { _a 'HTML 5', href: 'http://www.w3.org/html/wg/html5/' }
-                _li { _a 'Markup Language', href: 'http://www.w3.org/html/wg/markup-spec/' }
-                _li { _a 'Web Workers', href: 'http://dev.w3.org/html5/offline-webapps/' }
-                _li { _a 'HTML Author', href: 'http://dev.w3.org/html5/html-author/' }
-                _li { _a 'RDFa', href: 'http://dev.w3.org/html5/rdfa/Overview.html#rdfa' }
-                _li { _a 'Publication Notes', href: 'http://dev.w3.org/html5/pubnotes/' }
-                _li { _a 'HTML4 Differences', href: 'http://dev.w3.org/html5/html4-differences/' }
-                _li { _a 'Offline Web Applications', href: 'http://dev.w3.org/html5/offline-webapps/' }
-                _li { _a 'Design Principles', href: 'http://dev.w3.org/html5/html-design-principles/' }
-                _li { _a 'Web Forms 2.0', href: 'http://dev.w3.org/html5/web-forms-2/' }
-              end
-            end
-          end
-        end
-        _li do
-          _ 'Atom'
-          _ul do
-            _li { _a 'Format', href: 'http://www.atomenabled.org/developers/syndication/atom-format-spec.php' }
-            _li { _a 'Protocol', href: 'http://www.atomenabled.org/developers/protocol/atom-protocol-spec.php' }
-            _li do
-              _ 'Extensions'
-              _ul do
-                _li { _a 'Threading', href: 'http://tools.ietf.org/html/rfc4685' }
-                _li { _a 'Paging and Archiving', href: 'http://tools.ietf.org/html/rfc5005' }
-                _li { _a 'License', href: 'http://tools.ietf.org/html/rfc4946' }
-              end
-            end
-          end
-        end
-      end
+  _ &Snippets.sidebar
 
-      _svg_ viewBox: '0 0 100 100' do
-        _defs_ xlink: 'http://www.w3.org/1999/xlink' do
-          _radialGradient.i1! fx: '.4', fy: '.2', r: '.7' do
-            _stop stop_color: '#FE8', offset: '0'
-            _stop stop_color: '#D70', offset: '1'
-          end
-          _radialGradient.i2! fx: '.8', fy: '.5', 'xlink:href' => '#i1'
-          _radialGradient.i3! fx: '.5', fy: '.9', 'xlink:href' => '#i1'
-          _radialGradient.i4! fx: '.1', fy: '.5', 'xlink:href' => '#i1'
-        end
-        _g stroke: '#940' do
-          _path d: 'M73,29c-37-40-62-24-52,4l6-7c-8-16,7-26,42,9z', fill: 'url(#i1)'
-          _path d: 'M47,8c33-16,48,21,9,47l-6-5c38-27,20-44,5-37z', fill: 'url(#i2)'
-          _path d: 'M77,32c22,30,10,57-39,51l-1-8c3,3,67,5,36-36z', fill: 'url(#i3)'
-          _path d: 'M58,84c-4,20-38-4-8-24l-6-5c-36,43,15,56,23,27z', fill: 'url(#i4)'
-          _path d: 'M40,14c-40,37-37,52-9,68l1-8c-16-13-29-21,16-56z', fill: 'url(#i1)'
-          _path d: 'M31,33c19,23,20,7,35,41l-9,1.7c-4-19-8-14-31-37z', fill: 'url(#i2)'
-        end
-      end
-    end
+  _footer_ do
+    _ &Snippets.menu
+    _ &Snippets.watermark
   end
 end

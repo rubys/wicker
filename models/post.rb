@@ -122,4 +122,8 @@ class Post
     name = @filename[/-(\d+)\.cmt$/, 1]
     name && "c#{name}"
   end
+
+  def tag
+    "tag:intertwingly.net,2004:#{filename.sub('.txt', '')}"
+  end
 end

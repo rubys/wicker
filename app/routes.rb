@@ -1,10 +1,16 @@
 get '/' do
+  call env.merge("PATH_INFO" => '/index.html')
+end
+
+get '/index.html' do
   @index = Post.all.sort.reverse[0..9]
   capture Time.now, _html(:index)
 end
 
-get '/index.html' do
-  call env.merge("PATH_INFO" => '/')
+get '/index.atom' do
+  @index = Post.all.sort.reverse[0..9]
+  @updated = @index.first.first
+  capture Time.now, _atom(:index)
 end
 
 get %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|

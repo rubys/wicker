@@ -65,6 +65,7 @@ class Post
     read unless @icon
     return unless @icon
 
+    # determine the height and width
     decl = @icon[/<.*?>/m]
     decl.sub! /\s+style=(['"]).*?\1/, ''
     height = decl[/\sheight=["'](\d+)["']/, 1]
@@ -72,11 +73,17 @@ class Post
     viewbox = decl[/\sviewBox=['"]([-\d\s\.]*?)["']/, 1]
     viewbox ||= "0 0 #{width} #{height}"
 
+    # scale the height and width
     viewbox = viewbox.split(/\s+/).map {|n| n.to_f}
     decl[/()>/, 1] = " width='#{(viewbox[2]*scale).round}'" unless width
     decl[/()>/, 1] = " height='#{(viewbox[3]*scale).round}'" unless height
 
-    @icon.sub(/<.*?>/m, decl)
+    # replace declaration; insert spaces in paths
+    @icon.sub(/<.*?>/m, decl).gsub(/<path.*?>/) do |path|
+      path.sub(/\s+d=['"].*?['"]/) do |d|
+        d.gsub(/([a-yA-y]-?\d)/, ' \1').sub(/(d=['"]) /, '\1')
+      end
+    end
   end
 
   def body

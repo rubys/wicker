@@ -22,7 +22,8 @@ _atom _width: '99' do
       _summary_ {entry.excerpt.untaint} if entry.excerpt
 
       if entry.icon
-        _content_ {entry.icon.untaint + "\n" + entry.body.untaint}
+        icon = entry.icon.sub('<svg ', '<svg style="float:right" ')
+        _content_ {icon.untaint + "\n" + entry.body.untaint}
       else
         _content_ {entry.body.untaint}
       end

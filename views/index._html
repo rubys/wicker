@@ -7,8 +7,7 @@ _html lang: 'en', _width: '99' do
   _link rel: 'stylesheet', href: '/css/print.css', type: 'text/css', 
     media: 'print'
   _link rel: 'shortcut icon', href: '/favicon.ico'
-  _script :defer, src: '/js/jquery-1.11.2.min.js'
-  _script :defer, src: '/js/jq_localize_dates.js'
+  _script :defer, src: '/js/localize_dates.js'
 
   _header do
     _h1 do

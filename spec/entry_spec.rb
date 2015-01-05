@@ -4,12 +4,16 @@ feature "entry" do
   it "should show an entry with associated comments in chronological order" do
     visit '/2014/12/12/twelve'
     expect(page).to have_selector 'p', text: (%w(twelve)*12).join(' ')
-    expect(page).to have_selector 'section article', count: 12
-    expect(page).to have_selector 'section', count: 2
+    expect(page).to have_xpath '//section/article[@id]', count: 12
+    expect(page).to have_selector 'section h2 time', count: 2
     expect(page).to have_selector 'section header h2', text: '2014-12-13'
     expect(page).to have_selector 'section header h2', text: '2014-12-12'
     expect(page).to have_xpath '//article[@id="c1418447532"]'
     expect(page).to have_xpath '//a[@href="#c1418447532"]'
+    expect(page).to have_xpath '//a[@id="comments"]'
+    expect(page).to have_selector 'h2', text: 'Add your comment'
+    expect(page).to have_selector 'textarea#comment'
+    expect(page).to have_xpath '//input[@type="submit" and @value="Preview"]'
 
     times = page.all('article time').map {|time| time['datetime']}
     expect(times.length).to be(13)

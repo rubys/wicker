@@ -20,6 +20,15 @@ get %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
   capture @post.mtime, _html(:entry)
 end
 
+post %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
+  link = "#{date}/#{slug}"
+  mtime, @post = Post.find(link)
+  pass unless @post
+  @mtime = Time.now
+  @comment = params[:comment]
+  _html :preview
+end
+
 get %r{/archives/(\d\d\d\d)/(\d\d)} do |year, month|
   month, year = month.to_i, year.to_i
 

@@ -5,6 +5,7 @@
 require 'wunderbar/sinatra'
 require 'nokogumbo'
 require 'fileutils'
+require 'github/markdown'
 
 require_relative 'app/routes'
 require_relative 'models/post'

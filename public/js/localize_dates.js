@@ -80,6 +80,11 @@ function localizeDates() {
             section.appendChild(hr);
           }
 
+          var nextElement = article.nextElementSibling;
+          if (nextElement && nextElement.tagName.toLowerCase() == 'hr') {
+            nextElement.parentNode.removeChild(nextElement);
+          }
+
           section.appendChild(article);
         }
       }

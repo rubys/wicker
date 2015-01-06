@@ -41,7 +41,9 @@ _html lang: 'en', _width: '99' do
         _h2! {_time date.to_s, datetime: date.to_s}
       end
 
-      comments.sort_by {|comment| comment.mtime}.each do |comment|
+      comments.sort_by {|comment| comment.mtime}.each_with_index do |comment, i|
+        _hr if i != 0
+
         _article_ id: comment.fragment do
           _{comment.body.untaint}
           _ 'at'

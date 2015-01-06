@@ -6,6 +6,7 @@ _html lang: 'en', _width: '99' do
     media: 'print'
   _link rel: 'shortcut icon', href: '/favicon.ico'
   _script :defer, src: '/js/localize_dates.js'
+  _script :defer, src: '/js/comment_form.js'
 
   _header do
     _h1 do
@@ -56,41 +57,13 @@ _html lang: 'en', _width: '99' do
     end
   end
 
-  _section.comment_form! do
+  _section do
     _header do
       _h2 'Add your comment'
     end
 
     _article do
-      _form_ method: 'post', accept_charset: 'utf-8' do
-        _p_ do
-          _label 'Name:', for: 'name'
-          _input.name! maxlength: '50', name: 'name', size: '75', 
-            type: 'text', value: ''
-        end
-
-        _p_ do
-          _label 'E-mail:', for: 'email'
-          _input.email! maxlength: '75', name: 'email', size: '75',
-            type: 'email', value: ''
-        end
-
-        _p_ do
-          _label 'URI:', for: 'url'
-          _input.url! maxlength: '100', name: 'url', size: '75', type: 'url',
-            value: ''
-        end
-
-        _p_ do
-          _label 'Comment:', for: 'comment'
-          _textarea.comment! cols: '59', name: 'comment', rows: '12'
-        end
-
-        _input name: 'preview', type: 'submit', value: 'Preview'
-        _input type: 'button', value: 'Clear Info'
-        _input.bakecookie! type: 'checkbox', name: 'bakecookie'
-        _label 'Remember info?', for: 'bakecookie'
-      end
+      _ &Snippets.comment_form
     end
   end
 

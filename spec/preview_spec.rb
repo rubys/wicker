@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 
-feature "entry" do
-  it "should show an entry with associated comments in chronological order" do
+feature "preview" do
+  it "should allow you to preview a comment with markdown" do
     visit '/2014/07/07/seven'
     fill_in 'comment', with: '*text*'
     click_button 'Preview'

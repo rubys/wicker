@@ -335,6 +335,10 @@ section article footer {
   margin-bottom: 1em;
 }
 
+.storage-options {
+  display: none;
+}
+
 section article, .livepreview {
   border-width: 1px;
   border-style: outset;

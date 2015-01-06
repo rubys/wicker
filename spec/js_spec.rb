@@ -25,10 +25,16 @@ feature "javascript", js: true do
     expect(page).to have_field 'email', with: ''
     expect(page).to have_field 'url', with: ''
 
+
     within '#comment-form' do
       fill_in 'name', with: 'John Smith'
       fill_in 'email', with: 'johnsmith@example.com'
       fill_in 'url', with: 'http://example.com/'
+
+      expect(page).to have_button 'Preview', disabled: true
+      fill_in 'comment', with: 'text'
+      expect(page).to have_button 'Preview', disabled: false
+
       check 'rememberMe'
     end
 

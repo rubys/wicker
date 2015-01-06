@@ -137,9 +137,12 @@ hr {
   display: none;
 }
 
-input, textarea {
+input:enabled, textarea {
   color: #000;
   background-color: #dfe5f2;
+}
+
+input, textarea {
   padding: 2px;
   border-radius: 1em;
 }

@@ -3,6 +3,7 @@
 # be refactored into a proper framework.
 
 require 'wunderbar/sinatra'
+require 'wunderbar/script'
 require 'nokogumbo'
 require 'fileutils'
 require 'github/markdown'

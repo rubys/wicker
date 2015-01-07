@@ -47,16 +47,3 @@ end
 get '/update' do
   _html :update
 end
-
-get '/dir' do
-  _html :dir
-end
-
-get '/env' do
-  env.inspect
-end
-
-get '/dump' do
-  @mtime, @post = POSTS.sort.last
-  _html :dump
-end

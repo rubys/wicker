@@ -16,6 +16,10 @@ feature "post model" do
   end
 
   it "should parse a comment" do
+
+    # time of last comment
+    ctime = Time.new(2014,12,12,12,12,12).to_i + 12*60*60
+
     mtime, post = Post.find '2014/12/12/twelve'
     comment = post.comments.max_by {|comment| comment.mtime}
     expect(comment.mtime.localtime.strftime('%H:%M:%S')).to eq('00:12:12')
@@ -26,6 +30,6 @@ feature "post model" do
     expect(comment.icon).to be(nil)
     expect(comment.body).to include("<p>twelve</p>")
     expect(comment.body).to match(/<a.*>nobody<\/a>/)
-    expect(comment.fragment).to eq('c1418447532')
+    expect(comment.fragment).to eq("c#{ctime}")
   end
 end

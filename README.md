@@ -11,6 +11,8 @@ Prerequisites:
 * Install [Ruby](https://www.ruby-lang.org/en/) 1.9.3 or later.
 * Install [bundler](http://bundler.io/) and [rake](http://docs.seattlerb.org/rake/).
 * Install [PhantomJS](http://phantomjs.org/).
+ 
+[![Build Status](https://travis-ci.org/rubys/wicker.svg)](https://travis-ci.org/rubys/wicker)
 
 Installation instructions:
 ---

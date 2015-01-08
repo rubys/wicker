@@ -147,6 +147,10 @@ input, textarea {
   border-radius: 1em;
 }
 
+#comment-form input[type=submit] {
+  min-width: 6em;
+}
+
 /* ------------------- links ------------------ */
 
 a {

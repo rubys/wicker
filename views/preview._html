@@ -33,7 +33,11 @@ _html lang: 'en', _width: '99' do
 
   _section do
     _header do
-      _h2 'Edit your comment'
+      if @edit
+        _h2 'Edit your comment'
+      else
+        _h2 'Preview your comment'
+      end
     end
 
     _article do

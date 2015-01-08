@@ -3,7 +3,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var email = document.getElementById('email');
   var url = document.getElementById('url');
   var rememberMe = document.getElementById('remember-me');
-  var preview = document.querySelector('input[value=Preview]')
+  var preview = document.querySelector('input[value=Preview]');
+  var submit = document.querySelector('input[value=Submit]');
+  var comment = document.getElementById('comment');
+  var baseline = comment.value;
 
   if (!name.value)  name.value  = localStorage.getItem('name');
   if (!email.value) email.value = localStorage.getItem('email');
@@ -33,14 +36,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   var enablePreview = function(event) {
-    if (comment.value) {
-      preview.disabled = false;
-    } else {
-      preview.disabled = true;
-    }
+    if (preview) preview.disabled = !comment.value
   }
   enablePreview();
-  document.getElementById('comment').addEventListener("input", enablePreview);
+  comment.addEventListener("input", enablePreview);
 
   document.querySelector('.storage-options').style.display = 'inline';
 });

@@ -20,10 +20,17 @@ Snippets.comment_form = proc do
 
     _p_ do
       _label 'Comment:', for: 'comment'
-      _textarea.comment! @comment, cols: '59', name: 'comment', rows: '12'
+      _textarea.comment! @comment, cols: '59', name: 'comment', rows: '12',
+        readonly: (@preview != nil)
     end
 
-    _input name: 'preview', type: 'submit', value: 'Preview'
+    if @preview
+      _input name: 'edit', type: 'submit', value: 'Edit'
+      _input name: 'submit', type: 'submit', value: 'Submit'
+    else
+      _input name: 'preview', type: 'submit', value: 'Preview'
+    end
+
     _span.storage_options do
       _input.clear_info! type: 'button', value: 'Clear Info'
       _input.remember_me! type: 'checkbox', name: 'rememberMe'

@@ -65,11 +65,11 @@ module Wunderbar
       Wunderbar::Template.locals(self, args)
 
       if block
-        Wunderbar::Template::Atom.evaluate('_atom', self) do
+        Wunderbar::Template::Atom.evaluate('atom.rb', self) do
           _atom(*args) { instance_eval &block }
         end
       else
-        Wunderbar::Template::Atom.evaluate('_atom', self, *args)
+        Wunderbar::Template::Atom.evaluate('atom.rb', self, *args)
       end
     end
   end
@@ -140,4 +140,4 @@ module Wunderbar
   end
 end
 
-Tilt.register '_atom', Wunderbar::Template::Atom
+Tilt.register 'atom.rb', Wunderbar::Template::Atom

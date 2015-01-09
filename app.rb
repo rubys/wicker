@@ -12,7 +12,7 @@ require_relative 'app/routes'
 require_relative 'models/post'
 
 Wunderbar::Template::PASSABLE.push Post, Time, Date
-Wunderbar::CALLERS_TO_IGNORE.clear
+# Wunderbar::CALLERS_TO_IGNORE.clear
 
 # Monkeypatch to address https://github.com/sinatra/sinatra/pull/907
 module Rack
@@ -28,8 +28,12 @@ module Rack
 end
 
 Dir[File.expand_path('../views/_*.rb', __FILE__)].each do |file|
-  Wunderbar.templates[File.basename(file)[/_(\w+)/,1].gsub('_', '-')] =
-    eval("proc { #{File.read(file)} }")
+  name = File.basename(file)[/_(\w+)/,1].gsub('_', '-')
+  Wunderbar.templates[name] = proc do
+    template = eval("proc { #{File.read(file.untaint)} }".untaint, nil, file)
+    Wunderbar.templates[name] = template
+    template.call
+  end
 end
 
 def capture(mtime, result)

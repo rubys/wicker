@@ -63,14 +63,14 @@ _html lang: 'en', _width: '99' do
     end
 
     _article do
-      _ &Snippets.comment_form
+      _comment_form
     end
   end
 
-  _ &Snippets.sidebar
+  _sidebar
 
   _footer_ do
-    _ &Snippets.menu
-    _ &Snippets.watermark
+    _menu
+    _watermark
   end
 end

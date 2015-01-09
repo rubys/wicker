@@ -68,7 +68,7 @@ _html lang: 'en', _width: 99 do
   end
 
   _footer_ do
-    _ &Snippets.menu
-    _ &Snippets.watermark
+    _menu
+    _watermark
   end
 end

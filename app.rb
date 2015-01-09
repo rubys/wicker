@@ -27,12 +27,9 @@ module Rack
   end
 end
 
-require 'ostruct'
-Snippets = OpenStruct.new
 Dir[File.expand_path('../views/_*.rb', __FILE__)].each do |file|
   Wunderbar.templates[File.basename(file)[/_(\w+)/,1].gsub('_', '-')] =
-    eval(File.read(file))
-  require file
+    eval("proc { #{File.read(file)} }")
 end
 
 def capture(mtime, result)

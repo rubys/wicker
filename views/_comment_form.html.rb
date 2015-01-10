@@ -30,7 +30,7 @@ _form_.comment_form! method: 'post', accept_charset: 'utf-8' do
     _input name: 'preview', type: 'submit', value: 'Preview'
   end
 
-  _span.storage_options do
+  _span_.storage_options do
     _input.clear_info! type: 'button', value: 'Clear Info'
     _input.remember_me! type: 'checkbox', name: 'rememberMe'
     _label 'Remember info?', for: 'rememberMe'

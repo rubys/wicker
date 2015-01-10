@@ -58,7 +58,7 @@ _html lang: 'en', _width: '99' do
   end
 
   _section do
-    _header do
+    _header_ do
       _h2 'Add your comment'
     end
 

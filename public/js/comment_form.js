@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var rememberMe = document.getElementById('remember-me');
   var preview = document.querySelector('input[value=Preview]');
   var submit = document.querySelector('input[value=Submit]');
+  var edit = document.querySelector('input[value=Edit]');
   var comment = document.getElementById('comment');
   var baseline = comment.value;
 
@@ -36,10 +37,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   var enablePreview = function(event) {
-    if (preview) preview.disabled = !comment.value
+    if (preview) preview.disabled = !comment.value;
+
+    if (submit) {
+      submit.disabled = !comment.value
+      submit.value = ((comment.value == baseline) ? 'Submit' : 'Preview');
+      submit.setAttribute('name', submit.value.toLowerCase());
+    }
   }
   enablePreview();
   comment.addEventListener("input", enablePreview);
+
+  comment.readOnly = false;
+  if (edit) {
+    edit.parentNode.removeChild(edit);
+    document.querySelector('h2').textContent = 'Edit your comment';
+  }
 
   document.querySelector('.storage-options').style.display = 'inline';
 });

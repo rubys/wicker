@@ -1,4 +1,4 @@
-_svg_ viewBox: '0 0 100 100' do
+_svg_ viewBox: '0 0 100 100', width: 100, height: 100 do
   _defs_ xlink: 'http://www.w3.org/1999/xlink' do
     _radialGradient.i1! fx: '.4', fy: '.2', r: '.7' do
       _stop stop_color: '#FE8', offset: '0'

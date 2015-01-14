@@ -2,19 +2,19 @@ _form_.comment_form! method: 'post', accept_charset: 'utf-8' do
   _p_ do
     _label 'Name:', for: 'name'
     _input.name! maxlength: '50', name: 'name', size: '75', 
-      type: 'text', value: ''
+      type: 'text', value: @name
   end
 
   _p_ do
     _label 'E-mail:', for: 'email'
     _input.email! maxlength: '75', name: 'email', size: '75',
-      type: 'email', value: ''
+      type: 'email', value: @email
   end
 
   _p_ do
     _label 'URL:', for: 'url'
     _input.url! maxlength: '100', name: 'url', size: '75', type: 'url',
-      value: ''
+      value: @url
   end
 
   _p_ do

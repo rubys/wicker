@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'wunderbar'
+gem 'wunderbar', '>= 0.22.3'
 gem 'ruby2js'
 gem 'sinatra'
 gem 'nokogumbo'

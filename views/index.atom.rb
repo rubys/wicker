@@ -1,4 +1,4 @@
-_atom _width: '99' do
+_atom do
   _title 'Sam Ruby'
   _subtitle 'It’s just data'
   __

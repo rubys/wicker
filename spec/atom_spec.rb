@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-feature "index" do
+feature "feed" do
   it "should include 10 entries" do
     visit '/index.atom'
     expect(page).to have_selector 'entry', count: 10

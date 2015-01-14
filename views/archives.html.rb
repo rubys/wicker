@@ -1,4 +1,4 @@
-_html lang: 'en', _width: 99 do
+_html lang: 'en' do
   _title "Sam Ruby: #{@dates.first.strftime('%B %Y')}"
   _link rel: 'stylesheet', href: '/css/blogy.css', type: 'text/css'
 

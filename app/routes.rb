@@ -17,9 +17,7 @@ get %r{/(\d\d\d\d/\d\d/\d\d)/(.*?)/pending.json} do |date, slug|
   link = "#{date}/#{slug}"
   mtime, post = Post.find(link)
   pass unless post
-  _json do
-    _! post.pending
-  end
+  _json post.pending
 end
 
 get %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|

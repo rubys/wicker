@@ -1,4 +1,4 @@
-_html lang: 'en', _width: '99' do
+_html lang: 'en' do
   _title 'Sam Ruby'
   _link rel: 'alternate', type: 'application/atom+xml', 
     title: 'Sam Ruby', href: '/blog/index.atom'

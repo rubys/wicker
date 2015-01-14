@@ -11,6 +11,7 @@ require 'github/markdown'
 require_relative 'app/routes'
 require_relative 'models/post'
 
+Wunderbar.option width: 99
 Wunderbar::Template::PASSABLE.push Post, Time, Date
 # Wunderbar::CALLERS_TO_IGNORE.clear
 
@@ -106,7 +107,7 @@ module Wunderbar
       args << {} if args.empty?
       if Hash === args.first
         args.first[:xmlns] ||= 'http://www.w3.org/2005/Atom'
-        @_x.width = args.first.delete(:_width).to_i if args.first[:_width]
+        @_x._width = args.first.delete(:_width).to_i if args.first[:_width]
       end
 
       tag!('atom', *args) do

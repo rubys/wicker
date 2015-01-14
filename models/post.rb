@@ -1,9 +1,12 @@
+require 'fileutils'
+
 class Post
   attr_reader :filename, :mtime
   @@posts = {}
 
   def self.load(env)
     @@dir = File.expand_path("../../db/#{env}", __FILE__).untaint
+    @@env = env
 
     Dir.chdir(@@dir) do
       Dir['*.txt'].each do |post|
@@ -132,5 +135,35 @@ class Post
 
   def tag
     "tag:intertwingly.net,2004:#{filename.sub('.txt', '')}"
+  end
+
+  def self.render(params, mtime)
+    content = GitHub::Markdown.render(params['comment'])
+    name = CGI.escapeHTML(params['name'] || 'anonymous')
+    content += "<p>Posted by #{name}</p>"
+    [mtime.iso8601, content]
+  end
+
+  def comment(params)
+    mtime = Time.now
+    params[mtime] = mtime.to_f
+    pending << Post.render(params, mtime)
+    return if @@env == 'test'
+
+    puts FileUtils.mkdir_p "#{@@dir}/#{link}"
+    FileUtils.mkdir_p "#{@@dir}/#{link}"
+    File.open("#{@@dir}/#{link}/#{mtime.to_f}.mod", 'w') do |file|
+      file.write JSON.pretty_generate params
+    end
+    File.utime(mtime, mtime, "#{@@dir}/#{link}/#{mtime.to_f}.mod")
+  end
+
+  def pending
+    @pending ||= Dir.chdir(@@dir) do
+      Dir["#{link}/*.mod".untaint].map do |file|
+        data = JSON.parse(File.read(file.untaint))
+        Post.render(data, File.mtime(file.untaint))
+      end
+    end
   end
 end

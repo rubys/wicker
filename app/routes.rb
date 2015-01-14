@@ -1,5 +1,5 @@
 get '/' do
-  call env.merge("PATH_INFO" => '/index.html')
+  call env.merge('PATH_INFO' => '/index.html')
 end
 
 get '/index.html' do
@@ -13,6 +13,15 @@ get '/index.atom' do
   capture Time.now, _atom(:index)
 end
 
+get %r{/(\d\d\d\d/\d\d/\d\d)/(.*?)/pending.json} do |date, slug|
+  link = "#{date}/#{slug}"
+  mtime, post = Post.find(link)
+  pass unless post
+  _json do
+    _! post.pending
+  end
+end
+
 get %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
   link = "#{date}/#{slug}"
   @mtime, @post = Post.find(link)
@@ -24,9 +33,15 @@ post %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
   link = "#{date}/#{slug}"
   mtime, @post = Post.find(link)
   pass unless @post
-  @mtime = Time.now
-  @comment = params[:comment]
-  _html :preview
+
+  if params[:submit]
+    @post.comment(params.merge(env))
+    call env.merge('REQUEST_METHOD' => 'GET')
+  else
+    @mtime = Time.now
+    @comment = params[:comment]
+    _html :preview
+  end
 end
 
 get %r{/archives/(\d\d\d\d)/(\d\d)} do |year, month|

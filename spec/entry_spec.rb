@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 feature "entry" do
   it "should show an entry with associated comments in chronological order" do
-    visit '/2014/12/12/twelve'
+    visit '/blog/2014/12/12/twelve'
 
     # time of last comment
     ctime = Time.new(2014,12,12,12,12,12).to_i + 12*60*60

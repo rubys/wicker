@@ -1,33 +1,33 @@
-get '/' do
-  call env.merge('PATH_INFO' => '/index.html')
+get '/blog/' do
+  call env.merge('PATH_INFO' => '/blog/index.html')
 end
 
-get '/index.html' do
+get '/blog/index.html' do
   @index = Post.all.sort.reverse[0..9]
   capture Time.now, _html(:index)
 end
 
-get '/index.atom' do
+get '/blog/index.atom' do
   @index = Post.all.sort.reverse[0..9]
   @updated = @index.first.first
   capture Time.now, _atom(:index)
 end
 
-get %r{/(\d\d\d\d/\d\d/\d\d)/(.*?)/pending.json} do |date, slug|
+get %r{/blog/(\d\d\d\d/\d\d/\d\d)/(.*?)/pending.json} do |date, slug|
   link = "#{date}/#{slug}"
   mtime, post = Post.find(link)
   pass unless post
   _json post.pending
 end
 
-get %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
+get %r{/blog/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
   link = "#{date}/#{slug}"
   @mtime, @post = Post.find(link)
   pass unless @post
   capture @post.mtime, _html(:entry)
 end
 
-post %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
+post %r{/blog/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
   link = "#{date}/#{slug}"
   mtime, @post = Post.find(link)
   pass unless @post
@@ -42,7 +42,7 @@ post %r{/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
   end
 end
 
-get %r{/archives/(\d\d\d\d)/(\d\d)} do |year, month|
+get %r{/blog/archives/(\d\d\d\d)/(\d\d)} do |year, month|
   month, year = month.to_i, year.to_i
 
   @dates = (1..31).select {|day| Date.valid_date?(year, month, day)}.

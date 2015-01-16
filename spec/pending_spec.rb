@@ -5,13 +5,13 @@ feature "pending" do
   def app; Capybara.app; end
 
   it "should allow you get a list of unmoderated comments" do
-    visit '/2014/06/06/six'
+    visit '/blog/2014/06/06/six'
     fill_in 'name', with: 'shady'
     fill_in 'comment', with: 'spam'
     click_button 'Preview'
     click_button 'Submit'
 
-    get '/2014/06/06/six/pending.json'
+    get '/blog/2014/06/06/six/pending.json'
     pending = JSON.parse(last_response.body)
     mtime, content = pending.last
     expect(content).to include('shady')

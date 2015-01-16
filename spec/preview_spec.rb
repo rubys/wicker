@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 feature "preview" do
   it "should allow you to preview a comment without js" do
-    visit '/2014/07/07/seven'
+    visit '/blog/2014/07/07/seven'
     fill_in 'comment', with: '*text*'
     click_button 'Preview'
     expect(page).to have_selector 'em', text: 'text'
@@ -26,7 +26,7 @@ feature "preview" do
   end
 
   it "should allow you to preview a comment with js", js: true do
-    visit '/2014/07/07/seven'
+    visit '/blog/2014/07/07/seven'
     expect(page).to have_button 'Preview', disabled: true
     fill_in 'comment', with: '*text*'
     click_button 'Preview'

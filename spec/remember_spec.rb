@@ -21,23 +21,38 @@ feature "remember me" do
 
   it "should remember you across visits with js", js: true do
     visit '/blog/2014/07/07/seven'
-    expect(find_field('name').value).to eq('')
-    expect(find_field('email').value).to eq('')
-    expect(find_field('url').value).to eq('')
-    fill_in 'name', with: 'John'
-    fill_in 'email', with: 'john@example.com'
-    fill_in 'url', with: 'http://example.com'
-    fill_in 'comment', with: 'text'
-    check 'rememberMe'
+    expect(page).to have_field 'name', with: ''
+    expect(page).to have_field 'email', with: ''
+    expect(page).to have_field 'url', with: ''
+
+    within '#comment-form' do
+      fill_in 'name', with: 'John Smith'
+      fill_in 'email', with: 'johnsmith@example.com'
+      fill_in 'url', with: 'http://example.com/'
+
+      expect(page).to have_button 'Preview', disabled: true
+      fill_in 'comment', with: 'text'
+      expect(page).to have_button 'Preview', disabled: false
+
+      check 'rememberMe'
+    end
+
     click_button 'Preview'
+    expect(page).to have_field 'name', with: 'John Smith'
+
     visit '/blog/2014/07/07/seven'
-    expect(page).to have_field('name', with: 'John')
-    expect(page).to have_field('email', with: 'john@example.com')
-    expect(page).to have_field('url', with: 'http://example.com')
+    expect(page).to have_field 'name', with: 'John Smith'
+    expect(page).to have_field 'email', with: 'johnsmith@example.com'
+    expect(page).to have_field 'url', with: 'http://example.com/'
+
     click_button 'Clear Info'
+    expect(page).to have_field 'name', with: ''
+    expect(page).to have_field 'email', with: ''
+    expect(page).to have_field 'url', with: ''
+
     visit '/blog/2014/07/07/seven'
-    expect(find_field('name').value).to eq('')
-    expect(find_field('email').value).to eq('')
-    expect(find_field('url').value).to eq('')
+    expect(page).to have_field 'name', with: ''
+    expect(page).to have_field 'email', with: ''
+    expect(page).to have_field 'url', with: ''
   end
 end

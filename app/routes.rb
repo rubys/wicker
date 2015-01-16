@@ -1,3 +1,7 @@
+get '/' do
+  redirect to('/blog/')
+end
+
 get '/blog/' do
   call env.merge('PATH_INFO' => '/blog/index.html')
 end
@@ -61,6 +65,10 @@ get %r{/blog/archives/(\d\d\d\d)/(\d\d)} do |year, month|
   _html :archives
 end
 
-get '/update' do
-  _html :update
+get '/dashboard' do
+  _html :dashboard
+end
+
+post '/dashboard' do
+  _html :dashboard
 end

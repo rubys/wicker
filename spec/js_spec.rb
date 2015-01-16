@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 feature "javascript", js: true do
   it "should have a localize_dates.js" do
-    visit '/js/localize_dates.js'
+    visit '/blog/localize_dates.js'
     expect(page.status_code).to be(200)
   end
 
@@ -15,7 +15,7 @@ feature "javascript", js: true do
   end
 
   it "should have a comment_form.js" do
-    visit '/js/comment_form.js'
+    visit '/blog/comment_form.js'
     expect(page.status_code).to be(200)
   end
 

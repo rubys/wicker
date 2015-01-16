@@ -1,12 +1,12 @@
 _html lang: 'en' do
   _title "Sam Ruby: #{@post.title}"
-  _link rel: 'stylesheet', href: '/css/blogy.css', type: 'text/css', 
+  _link rel: 'stylesheet', href: '/blog/screen.css', type: 'text/css', 
     media: 'screen'
-  _link rel: 'stylesheet', href: '/css/print.css', type: 'text/css', 
+  _link rel: 'stylesheet', href: '/blog/print.css', type: 'text/css', 
     media: 'print'
   _link rel: 'shortcut icon', href: '/favicon.ico'
-  _script :defer, src: '/js/localize_dates.js'
-  _script :defer, src: '/js/comment_form.js'
+  _script :defer, src: '/blog/localize_dates.js'
+  _script :defer, src: '/blog/comment_form.js'
 
   _header do
     _h1 do

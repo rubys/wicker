@@ -1,6 +1,6 @@
 _html lang: 'en' do
   _title "Sam Ruby: #{@dates.first.strftime('%B %Y')}"
-  _link rel: 'stylesheet', href: '/css/blogy.css', type: 'text/css'
+  _link rel: 'stylesheet', href: '/blog/screen.css', type: 'text/css'
 
   _header do
     _h1 { _a 'intertwingly', href: 'http://intertwingly.net/blog/' }

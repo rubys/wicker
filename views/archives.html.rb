@@ -3,8 +3,8 @@ _html lang: 'en' do
   _link rel: 'stylesheet', href: '/blog/screen.css', type: 'text/css'
 
   _header do
-    _h1 { _a 'intertwingly', href: 'http://intertwingly.net/blog/' }
-    _form method: 'get', action: 'http://intertwingly.net/blog/' do
+    _h1 { _a 'intertwingly', href: '/blog/' }
+    _form method: 'get', action: '/blog/' do
       _label 'Search', for: 'q'
       _input.q! type: 'search', name: 'q', placeholder: 'Search', value: ''
     end

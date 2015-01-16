@@ -42,6 +42,10 @@ post %r{/blog/(\d\d\d\d/\d\d/\d\d)/(.*)} do |date, slug|
   end
 end
 
+get '/blog/archives/' do
+  call env.merge('PATH_INFO' => Date.today.strftime('/blog/archives/%Y/%m'))
+end
+
 get %r{/blog/archives/(\d\d\d\d)/(\d\d)} do |year, month|
   month, year = month.to_i, year.to_i
 

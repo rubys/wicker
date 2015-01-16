@@ -2,14 +2,7 @@ _html lang: 'en' do
   _title "Sam Ruby: #{@dates.first.strftime('%B %Y')}"
   _link rel: 'stylesheet', href: '/blog/screen.css', type: 'text/css'
 
-  _header do
-    _h1 { _a 'intertwingly', href: '/blog/' }
-    _form method: 'get', action: '/blog/' do
-      _label 'Search', for: 'q'
-      _input.q! type: 'search', name: 'q', placeholder: 'Search', value: ''
-    end
-    _p "It’s just data"
-  end
+  _banner
 
   _table_.calendar do
     _caption do

@@ -6,17 +6,7 @@ _html lang: 'en' do
     media: 'print'
   _link rel: 'shortcut icon', href: '/favicon.ico'
 
-  _header do
-    _h1 do
-      _a.banner_anchor 'intertwingly', href: '/blog/'
-    end
-
-    _form method: 'get', action: '/blog/' do
-      _label 'Search', for: 'q'
-      _input.q! type: 'search', name: 'q', placeholder: 'Search', value: ''
-    end
-    _p "It’s just data"
-  end
+  _banner
 
   _article_ do
     _header_! { _h3 {_a 'Actions'} }

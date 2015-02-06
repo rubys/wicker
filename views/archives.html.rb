@@ -12,32 +12,26 @@ _html lang: 'en' do
     headings = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
 
     _thead_ do
-      _tr do
-        headings.each {|day| _th day}
+      _tr headings do |day|
+        _th day
       end
     end
 
-    _tbody do
-      @weeks.each do |week, dates|
-        dates = Hash[dates.map {|date| [date.strftime('%A'), date.day]}]
-        _tr_ do
-          headings.each do |day|
-            if not dates[day]
-              _td
-            elsif @posts[dates[day]].empty?
-              _td! { _div.day dates[day] }
-            else
-              _td do
-                _div.day dates[day]
-                _ul do
-                  @posts[dates[day]].each do |post|
-                    _li do 
-                      _a href: "../../#{post.link}" do
-                        _ post.title
-                      _{post.icon(0.4).untaint}
-                      end
-                    end
-                  end
+    _tbody @weeks do |week, dates|
+      dates = Hash[dates.map {|date| [date.strftime('%A'), date.day]}]
+      _tr_ headings do |day|
+        if not dates[day]
+          _td
+        elsif @posts[dates[day]].empty?
+          _td! { _div.day dates[day] }
+        else
+          _td do
+            _div.day dates[day]
+            _ul @posts[dates[day]] do |post|
+              _li do
+                _a href: "../../#{post.link}" do
+                  _ post.title
+                  _{post.icon(0.4).untaint}
                 end
               end
             end
@@ -53,6 +47,7 @@ _html lang: 'en' do
       _a prev_month.strftime('%B %Y'), href: prev_month.strftime('../%Y/%m')
     end
   end
+
   _div!.rightbar do
     next_month = @dates.last + 1
     _h2 do

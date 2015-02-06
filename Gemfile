@@ -12,3 +12,8 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
 end
+
+group :demo do
+  gem 'puma'
+  gem 'listen'
+end

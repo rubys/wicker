@@ -39,7 +39,7 @@ end
 
 def capture(mtime, result)
   unless settings.test?
-    path = "/var/www/blog#{env['PATH_INFO']}"
+    path = "/var/www#{env['PATH_INFO']}"
     target = File.expand_path(path, __FILE__)
 
     if not File.exist?(target) or File.read(target) != result

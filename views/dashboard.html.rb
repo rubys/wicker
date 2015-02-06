@@ -33,7 +33,7 @@ _html lang: 'en' do
   if @script and Dir['bin/*'].include? @script
     _article_ do
       _header_! { _h3 {_a "#@script results"} }
-      _pre `#{@script.untaint}`
+      _pre `#{File.expand_path(@script).untaint}`
     end
   end
 
